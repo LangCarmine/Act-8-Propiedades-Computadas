@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Propiedades Computadas</title>
+
+  <!--Fuente de testo del gugul fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!--Los estilos -->
+  <link href="style.css" rel="stylesheet" type="text/css" />
+
+  <!--Link del VUE -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <!--Titulo-->
+  <h1>GYM "LAS BARRAS PRADERAS"</h1>
+
+  <!article con id formulario xD -->
+    <article id="formulario">
+
+      <!-- -->
+      <form>
+
+        <!--Aca se ingresa el nombre del producto y se guarda en newProducto -->
+        <input type="text" placeholder="Nombre del producto" v-model="newProducto">
+
+        <!--Cantidad en newCantidad -->
+        <input type="number" placeholder="Cantidad" v-model="newCantidad" min="0" max="12">
+
+        <!--Precio por unidad en newPrecio -->
+        <input type="number" placeholder="Precio por unidad" v-model="newPrecio">
+
+        <!--Se envian los datos con un @click -->
+        <button type="button" @click="agregar">Agregar</button><br>
+      </form>
+      <hr>
+
+      <table>
+        <!--Titulo de la tabla -->
+        <caption>Almacen</caption>
+
+        <!--Encabezado -->
+        <thead>
+
+          <!--Encabezados de la tabla -->
+          <tr>
+            <th>Nombre del producto</th>
+            <th>Cantidad</th>
+            <th>Importe</th>
+          </tr>
+
+        </thead>
+
+        <!--Cuerpo tabla -->
+        <tbody>
+
+          <tr v-for="(item, index) in items" :key="index">
+            <!--Aca se imprimen los datos -->
+            <td>{{ item.producto }}</td>
+
+            <!--Cuando cantidad es mayor a 10, el testo se chivea -->
+            <td :class="{'texto-rojo': item.cantidad > 10}">{{ item.cantidad }}</td>
+
+            <!--Cantidad se multiplica por precio para dar el importe -->
+            <td>{{ item.cantidad * item.precio }}</td>
+          </tr>
+        </tbody>
+
+        <!--Aca se muestran los totales, en el footer de la tabla -->
+        <tfoot>
+          <tr>
+            <td><strong>Totales:</strong></td>
+
+            <!--Los manda a llamar y see ejecutan a tiempo real-->
+            <td><strong>{{ totalCantidad }}</strong></td>
+            <td><strong>{{ totalImporte }}</strong></td>
+          </tr>
+        </tfoot>
+
+      </table>
+    </article>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
